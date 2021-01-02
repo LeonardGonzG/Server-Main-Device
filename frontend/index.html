@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device - IoT</title>
+
+    <link rel="stylesheet" type="text/css" href="./node_modules/chart.js/dist/Chart.css">
+    <script src="./node_modules/chart.js/dist/Chart.min.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="../frontend/JS/util.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+
+<body>
+
+
+
+    <div class="container">
+        <br>
+        <div class="alert alert-primary" role="alert">
+            Estudiante: <strong>Leonardo Gonzalez Gutierrez</strong> <br> Automatización y control del procesos <br> Universidad de Caldas
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                    <button id="showPulse" type="button" class="btn btn-danger">Pulse</button>
+                    <button id="showTemp" type="button" class="btn btn-primary">Temperature</button>
+                    <button id="showOxygen" type="button" class="btn btn-info">Oximeter</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <iframe src="" id="show" style="width:1000px; height: 500px;"></iframe>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script src="./JS/main.js"></script>
+</body>
+
+</html>

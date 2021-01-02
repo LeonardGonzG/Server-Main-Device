@@ -1,0 +1,241 @@
+<div id="container1" style="width: 100%; height:400px;"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<script>
+$(function(){
+    $('#container1').highcharts({
+        chart:{
+            type: 'spline',
+            zoomType: 'x'
+        },
+        colors: ['#337ab7', "#cc3c1a"],
+        title: {
+            text: 'Temperatura en el día'
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        yAxis: {
+            title:{
+                text: 'Watts'
+            }
+        },
+
+        series: [{
+            name: 'Potencia',
+           data: [<?php //temperatura_diaria("234", "0", "11", "20"); ?>]}
+
+        ],
+    });
+});
+
+
+</script>
+
+_-----------------------------
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<div id="container1" style="width: 70%; height:300px;"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<script>
+$(function(){
+    $('#container1').highcharts({
+        chart:{
+            type: 'spline',
+            zoomType: 'x'
+        },
+        colors: ['#FF334E', "#46FF33"],
+        title: {
+            text: 'Medición de ritmo cardiaco'
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        yAxis: {
+            title:{
+                text: 'Ritmo cardiaco'
+            }
+        },
+        series: [{
+            name: 'Dato',
+           data: [<?php getDataDevice('A01', $pdo) ?>]}
+
+        ],
+        plotOptions: {
+           series: {
+               animation: false
+           }
+       }
+    });
+}
+);
+
+
+setInterval(function(){
+   
+}, 1000);
+
+</script>
+    
+</body>
+</html>
+_____________________
+  $info=NULL;
+        foreach( $messages as $message ){
+           
+            $idRegister = $message->idRegister;
+            $fecha = $message->fechaD;
+            $heartRate = $message->heartRate;
+          /*$bpmSpO2 = $message->bpmSpO2;
+            $ambientTempC = $message->ambientTempC;
+            $objectTempC = $message->objectTempC;*/
+
+            //[$idRegister, $fecha, $heartRate, $bpmSpO2, $ambientTempC, $objectTempC];
+
+           /* echo "[";
+            echo  $fecha*1000; //en segundos UNIX        
+            echo ",";
+            echo $heartRate;
+            echo "],";*/
+        }
+
+        ________________________________________________________________
+        <!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="ok">
+        <div id="container1" style="width: 70%; height:300px;"></div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+    <script>
+        var chart = {};
+
+
+        grafica();
+
+        function requestData(nameDevice) {
+            var div = $('#refresh').html();
+            $.ajax({
+                type: "POST",
+                url: "get_data.php",
+                data: {
+                    device: nameDevice
+                },
+                success: function(data) {
+
+                    datos = JSON.parse(data);
+                    info = "";
+                    datos.forEach(i => {
+
+                        //  info = "[" + i.fechaD * 1000 + "," + i.heartRate + "]";
+                        var i = {};
+                        i.fechaD = Math.random() * 100000000;
+                        i.heartRate = Math.random();
+
+                        //   chart.series[0].addPoint([i.fechaD, i.heartRate], true, true);
+                        //  
+                        //  console.log(info);
+                        // chart.series[0].data.push([i.fechaD, i.heartRate]);
+                        $('#RitmoCardiaco').innerHTML = i.fechaD + " / " + i.heartRate;
+
+
+                    });
+
+
+                    //     $("#ok").load(location.href + "#ok");
+                    //  alert(datos[0].idRegister);
+                }
+            });
+
+
+
+        }
+
+        //  requestData("A01");
+        console.log(chart.series[0].name);
+
+        function grafica() {
+
+            chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'container1',
+                    animation: Highcharts.svg,
+                    type: 'spline',
+                    zoomType: 'x',
+                    events: {
+                        load: function() {
+                            setInterval(function() {
+                                ///requestDatta(document.getElementById("interface").value);
+                                // requestData('A01');
+                                //  console.log('Hola');
+                            }, 5000);
+                        }
+                    }
+                },
+                colors: ['#FF334E', "#46FF33"],
+                title: {
+                    text: 'Medición de ritmo cardiaco'
+                },
+                xAxis: {
+                    type: 'datetime'
+                },
+                yAxis: {
+                    title: {
+                        text: 'RitmoCardiaco'
+                    }
+                },
+                series: [{
+                    name: 'data',
+                    data: [
+                        [98919812738932, 9],
+                        [1882123898982, 9],
+                        [187812988930283901, 9999]
+                    ]
+                }]
+            });
+        }
+    </script>
+
+</body>
+
+</html>
+
+INSERT INTO `device_register` (`idRegister`, `fecha`, `serieDevice`, `heartRate`, `bpmSpO2`, `ambientTempC`, `objectTempC`) VALUES (NULL, current_timestamp(), 'A01', '63.2', '93.1', '30', '31.5');
+INSERT INTO `device_register` (`idRegister`, `fecha`, `serieDevice`, `heartRate`, `bpmSpO2`, `ambientTempC`, `objectTempC`) VALUES (NULL, current_timestamp(), 'A01', '65.2', '95.9', '31.5', '34.5');
+INSERT INTO `device_register` (`idRegister`, `fecha`, `serieDevice`, `heartRate`, `bpmSpO2`, `ambientTempC`, `objectTempC`) VALUES (NULL, current_timestamp(), 'A01', '61.2', '94.9', '35.7', '37.5');
+INSERT INTO `device_register` (`idRegister`, `fecha`, `serieDevice`, `heartRate`, `bpmSpO2`, `ambientTempC`, `objectTempC`) VALUES (NULL, current_timestamp(), 'A01', '63.6', '98.8', '36.8', '33.5');
+INSERT INTO `device_register` (`idRegister`, `fecha`, `serieDevice`, `heartRate`, `bpmSpO2`, `ambientTempC`, `objectTempC`) VALUES (NULL, current_timestamp(), 'A01', '80.2', '94.1', '32.3', '37.5');
+INSERT INTO `device_register` (`idRegister`, `fecha`, `serieDevice`, `heartRate`, `bpmSpO2`, `ambientTempC`, `objectTempC`) VALUES (NULL, current_timestamp(), 'A01', '67.1', '92.11', '39.2', '34.5');
+INSERT INTO `device_register` (`idRegister`, `fecha`, `serieDevice`, `heartRate`, `bpmSpO2`, `ambientTempC`, `objectTempC`) VALUES (NULL, current_timestamp(), 'A01', '87.1', '98.4', '34.8', '33.5');
+INSERT INTO `device_register` (`idRegister`, `fecha`, `serieDevice`, `heartRate`, `bpmSpO2`, `ambientTempC`, `objectTempC`) VALUES (NULL, current_timestamp(), 'A01', '92.2', '94.5', '39.2', '36.5');
+INSERT INTO `device_register` (`idRegister`, `fecha`, `serieDevice`, `heartRate`, `bpmSpO2`, `ambientTempC`, `objectTempC`) VALUES (NULL, current_timestamp(), 'A01', '98.2', '92.1', '31.0', '38.5');
+
+
+bpm / SpO2
