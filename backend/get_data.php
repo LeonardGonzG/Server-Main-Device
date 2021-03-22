@@ -30,7 +30,7 @@ if(isset($_POST['device'])&& isset($_POST['typeQuery'])) {
 //Obtenemos todos los registros dependiendo del dispositivo registrado
 function getDataDeviceHeart($serieDevice, $pdo){
 
-    $query = $pdo->prepare("SELECT idRegister, UNIX_TIMESTAMP(fecha) as fechaD, heartRate FROM `device_register` WHERE TRIM(serieDevice) = TRIM(:serieDevice) ORDER BY fecha DESC LIMIT 8");
+    $query = $pdo->prepare("SELECT idRegister, UNIX_TIMESTAMP(fecha) as fechaD, heartRate FROM `device_register` WHERE TRIM(serieDevice) = TRIM(:serieDevice) ORDER BY fecha DESC LIMIT 50");
     $query->execute(['serieDevice'=> $serieDevice]);
       
     $messages = $query->fetchAll( PDO::FETCH_OBJ);
@@ -39,7 +39,7 @@ function getDataDeviceHeart($serieDevice, $pdo){
 
 function getDataDeviceOxygen($serieDevice, $pdo){
 
-    $query = $pdo->prepare("SELECT idRegister, UNIX_TIMESTAMP(fecha) as fechaD, bpmSpO2 FROM `device_register` WHERE TRIM(serieDevice) = TRIM(:serieDevice) ORDER BY fecha DESC LIMIT 8");
+    $query = $pdo->prepare("SELECT idRegister, UNIX_TIMESTAMP(fecha) as fechaD, bpmSpO2 FROM `device_register` WHERE TRIM(serieDevice) = TRIM(:serieDevice) ORDER BY fecha DESC LIMIT 50");
     $query->execute(['serieDevice'=> $serieDevice]);
       
     $messages = $query->fetchAll( PDO::FETCH_OBJ);
@@ -48,7 +48,7 @@ function getDataDeviceOxygen($serieDevice, $pdo){
 
 function getDataDeviceTempC($serieDevice, $pdo){
 
-    $query = $pdo->prepare("SELECT idRegister, UNIX_TIMESTAMP(fecha) as fechaD, ambientTempC, objectTempC FROM `device_register` WHERE TRIM(serieDevice) = TRIM(:serieDevice) ORDER BY fecha DESC LIMIT 8");
+    $query = $pdo->prepare("SELECT idRegister, UNIX_TIMESTAMP(fecha) as fechaD, ambientTempC, objectTempC FROM `device_register` WHERE TRIM(serieDevice) = TRIM(:serieDevice) ORDER BY fecha DESC LIMIT 50");
     $query->execute(['serieDevice'=> $serieDevice]);
       
     $messages = $query->fetchAll( PDO::FETCH_OBJ);

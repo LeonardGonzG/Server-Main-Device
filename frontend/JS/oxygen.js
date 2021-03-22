@@ -18,37 +18,23 @@ function requestData(nameDevice) {
         },
         success: function(data) {
 
-            let sizeLabels = config.data.labels.length;
+            config.data.labels = [];
+            config.data.datasets[0].data = [];
+            window.myLine.update();
+
             let datos = JSON.parse(data);
-            let sizeData = datos.length;
 
-            let aux = 0;
+            datos.forEach(i => {
 
-            if (sizeLabels == 0) {
+                config.data.labels.push(parseInt(i.fechaD) * 1000);
+                config.data.datasets[0].data.push(i.bpmSpO2);
 
-                datos.forEach(i => {
+                config.data.labels.shift();
+                config.data.datasets[0].data.shift();
+            });
 
-                    config.data.labels.push(parseInt(i.fechaD) * 1000);
-                    config.data.datasets[0].data.push(i.bpmSpO2);
-                    window.myLine.update();
+            window.myLine.update();
 
-                });
-
-            } else {
-
-                datos.forEach(i => {
-
-                    config.data.labels.push(parseInt(i.fechaD) * 1000);
-                    config.data.datasets[0].data.push(i.bpmSpO2);
-
-                    config.data.labels.shift();
-                    config.data.datasets[0].data.shift();
-
-                });
-
-                window.myLine.update();
-
-            }
         }
     });
 }
