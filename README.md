@@ -1,5 +1,5 @@
 # Server-Main-Device
 <div align="center">
-    <img src="/example/CapturaSoftware.PNG" width="400px"</img> 
+    <img src="/example/CapturaSoftware.PNG" width="1000px"</img> 
 </div>
 	
