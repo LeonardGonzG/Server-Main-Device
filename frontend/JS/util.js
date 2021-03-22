@@ -23,6 +23,4 @@ util.methods = {
         var tiempo = "" + dateStamp.getHours() + ":" + dateStamp.getMinutes() + ":" + dateStamp.getSeconds();
         return tiempo;
     }
-
-
 }
