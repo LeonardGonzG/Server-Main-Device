@@ -112,11 +112,17 @@ void get_dataUser (){
 
 void sendCommand(String command, int maxTime, char readReplay[]) {
 
+  Serial.print(countTrueCommand);
+  Serial.print(". at command => ");
+  Serial.print(command);
+  Serial.print(" ");
+  
   while(countTimeCommand < (maxTime*1))
   {
     esp8266.println(command);//at+cipsend
     if(esp8266.find(readReplay))//ok
     {
+
       found = true;
       break;
     }
@@ -126,12 +132,14 @@ void sendCommand(String command, int maxTime, char readReplay[]) {
   
   if(found == true)
   {
+	Serial.println("OYI");
     countTrueCommand++;
     countTimeCommand = 0;
   }
   
   if(found == false)
   {
+	Serial.println("Fail");
     countTrueCommand = 0;
     countTimeCommand = 0;
   }
